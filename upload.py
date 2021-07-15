@@ -18,7 +18,7 @@ model = load_model(MODEL_NAME)
 app = Flask(__name__)
 
 
-@app.route('/uploader', methods=['GET', 'POST'])
+@app.route('/uploader', methods=[ 'POST'])
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
@@ -48,4 +48,4 @@ def upload_file():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=3000, debug=True)

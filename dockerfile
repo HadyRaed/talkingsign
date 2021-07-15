@@ -9,6 +9,6 @@ RUN apt-get install ffmpeg libsm6 libxext6  -y
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 3000
 
 CMD ["python", "upload.py"]
