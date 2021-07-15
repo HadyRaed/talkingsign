@@ -3,6 +3,7 @@ FROM python:3
 WORKDIR /app
 
 RUN pip install tensorflow
+RUN pip install flask
 
 COPY . .
 
