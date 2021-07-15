@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN pip install tensorflow
 RUN pip install flask
-RUN pip install cv2
+RUN pip install opencv-python
 
 COPY . .
 
