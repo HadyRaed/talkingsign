@@ -4,5 +4,5 @@ services:
         container_name: GP_SERVER
         build: .
         ports: 
-            - "3000:3000"
+            - "2000:80"
        
