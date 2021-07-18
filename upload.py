@@ -13,7 +13,7 @@ data_generator = ImageDataGenerator(samplewise_center=True, samplewise_std_norma
 # Loading the model.
 MODEL_NAME = 'asl_alphabet_9575.h5'
 model = load_model(MODEL_NAME)
-
+print("we are in the right dir")
 
 app = Flask(__name__)
 
@@ -23,6 +23,7 @@ def upload_file():
     if request.method == 'POST':
         f = request.files['file']
         f.save(secure_filename("A1.jpg"))
+        print("i recived a response")
         IMAGE_SIZE = 200
         CROP_SIZE = 400
 
@@ -33,11 +34,12 @@ def upload_file():
         classes.sort()  # The predict function sends out output in sorted order.
         frame = cv2.imread("A1.jpg")
         # Target area where the hand gestures should be.
-        cv2.rectangle(frame, (0, 0), (CROP_SIZE, CROP_SIZE), (0, 255, 0), 3)
+       # cv2.rectangle(frame, (0, 0), (CROP_SIZE, CROP_SIZE), (0, 255, 0), 3)
         # Preprocessing the frame before input to the model.
-        cropped_image = frame[0:CROP_SIZE, 0:CROP_SIZE]
-        resized_frame = cv2.resize(cropped_image, (IMAGE_SIZE, IMAGE_SIZE))
+        #cropped_image = frame[0:CROP_SIZE, 0:CROP_SIZE]
+        resized_frame = cv2.resize(frame, (IMAGE_SIZE, IMAGE_SIZE))
         reshaped_frame = (np.array(resized_frame)).reshape((1, IMAGE_SIZE, IMAGE_SIZE, 3))
+        cv2.imwrite("/app/downimg.jpg",reshaped_frame[0])
         frame_for_model = data_generator.standardize(np.float64(reshaped_frame))
 
         # Predicting the frame.
@@ -49,3 +51,4 @@ def upload_file():
 
 if __name__ == '__main__':
     app.run(port=80,host='0.0.0.0', debug=False)
+
